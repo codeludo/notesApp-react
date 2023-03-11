@@ -6,17 +6,20 @@ import Split from "react-split"
 import {nanoid} from "nanoid"
 
 // Sync notes with localStorage - branch: notes-to-localStorage
+// Add note summary titles
 /**
-     * Challenge:
-     * 1. Every time the `notes` array changes, save it 
-     *    in localStorage. You'll need to use JSON.stringify()
-     *    to turn the array into a string to save in localStorage.
-     * 2. When the app first loads, initialize the notes state
-     *    with the notes saved in localStorage. You'll need to
-     *    use JSON.parse() to turn the stringified array back
-     *    into a real JS array.
+     * Challenge: Try to figure out a way to display only the 
+     * first line of note.body as the note summary in the
+     * sidebar.
+     * 
+     * Hint 1: note.body has "invisible" newline characters
+     * in the text every time there's a new line shown. E.g.
+     * the text in Note 1 is:
+     * "# Note summary\n\nBeginning of the note"
+     * 
+     * Hint 2: See if you can split the string into an array
+     * using the "\n" newline character as the divider
      */
-// TODO Add note summary titles
 // TODO Move modified notes to the top of the list
 // TODO Delete notes
 
