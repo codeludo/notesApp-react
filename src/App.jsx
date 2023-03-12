@@ -7,7 +7,7 @@ import {nanoid} from "nanoid"
 
 // Sync notes with localStorage - branch: notes-to-localStorage
 // Add note summary titles
-// TODO Move modified notes to the top of the list
+// Move modified notes to the top of the list
     /**
      * Challenge: When the user edits a note, reposition
      * it in the list of notes to the top of the list
@@ -37,11 +37,33 @@ export default function App() {
     }
     
     function updateNote(text) {
-        setNotes(oldNotes => oldNotes.map(oldNote => {
-            return oldNote.id === currentNoteId
-                ? { ...oldNote, body: text }
-                : oldNote
-        }))
+        // scrimba solution
+        // Put the most recently-modified note at the top
+        // setNotes(oldNotes => {
+        //     const newArray = []
+        //     for(let i = 0; i < oldNotes.length; i++) {
+        //         const oldNote = oldNotes[i]
+        //         if(oldNote.id === currentNoteId) {
+        //             newArray.unshift({ ...oldNote, body: text })
+        //         } else {
+        //             newArray.push(oldNote)
+        //         }
+        //     }
+        //     return newArray
+        // })
+        // my solution
+        setNotes(oldNotes => {
+            let noteIndex
+            const updatedNotes = oldNotes.map((oldNote, index) => {
+                if (oldNote.id === currentNoteId) {
+                    noteIndex = index
+                    return { ...oldNote, body: text }
+                } else return oldNote
+            })
+            const noteUpdated = updatedNotes.splice(noteIndex, 1)
+            updatedNotes.unshift(noteUpdated[0])
+            return updatedNotes
+        })
     }
 
     React.useEffect(
